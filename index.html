@@ -11,6 +11,7 @@
             // Example of a GET request
             fetch(url, {
                 method: "GET", // Change to "POST" for a POST request
+                credentials:true
             })
             .then(response => {
                 if (!response.ok) {
