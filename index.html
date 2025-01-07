@@ -4,23 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Send Request</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
         function sendRequest() {
             const url = "https://api.ganket.work.gd"; // Replace with your URL
 
-            // Example of a GET request
-            fetch(url, {
-                method: "GET", // Change to "POST" for a POST request
-                credentials:"include"
+            // Example of a GET request using Axios
+            axios.get(url, {
+                withCredentials: true // Include cookies in cross-origin requests
             })
             .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log("Success:", data);
+                console.log("Success:", response.data);
                 alert("Request successful!");
             })
             .catch(error => {
