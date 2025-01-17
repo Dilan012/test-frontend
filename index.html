@@ -7,9 +7,9 @@
   <canvas id="pongCanvas" width="400" height="200"></canvas>
   <button id="moveButton">Move Paddle</button>
 
-  <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+  <script src="https://api.ganket.work.gd/socket.io/socket.io.js"></script>
   <script>
-    const socket = io('http://localhost:3000');  // Connect to the server
+    const socket = io('https://api.ganket.work.gd');  // Connect to the server
     const canvas = document.getElementById('pongCanvas');
     const ctx = canvas.getContext('2d');
 
