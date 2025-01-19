@@ -9,8 +9,9 @@
 
   <script src="https://api.ganket.work.gd/socket.io/socket.io.js"></script>
   <script>
-    const socket = io('https://api.ganket.work.gd');  // Connect to the server
-    const canvas = document.getElementById('pongCanvas');
+const socket = io('https://api.ganket.work.gd', {
+  transports: ['websocket'],
+});    const canvas = document.getElementById('pongCanvas');
     const ctx = canvas.getContext('2d');
 
     let paddleHeight = 50;
