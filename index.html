@@ -1,44 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Multiplayer Pong</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test CSRF</title>
 </head>
 <body>
-  <canvas id="pongCanvas" width="400" height="200"></canvas>
-  <button id="moveButton">Move Paddle</button>
+    <h2>Test CSRF Protection</h2>
+    <form action="https://your-backend-domain.com/your-endpoint" method="POST" id="csrf-test-form">
+        <!-- Example fields to test form submission -->
+        <input type="text" name="username" value="fakeUser" />
+        <input type="password" name="password" value="fakePassword" />
+        <button type="submit">Submit</button>
+    </form>
 
-  <script src="https://api.ganket.work.gd/socket.io/socket.io.js"></script>
-  <script>
-const socket = io('https://api.ganket.work.gd'
-);    const canvas = document.getElementById('pongCanvas');
-    const ctx = canvas.getContext('2d');
-
-    let paddleHeight = 50;
-    let paddleWidth = 10;
-    let player = 1;
-    let currentMouseY = 0;
-
-    // Listen for game state updates
-    socket.on('gameState', (gameState) => {
-      // Draw the game state (paddles, ball, score, etc.)
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillRect(0, gameState.paddle1.y, paddleWidth, paddleHeight); // Paddle 1
-      ctx.fillRect(canvas.width - paddleWidth, gameState.paddle2.y, paddleWidth, paddleHeight); // Paddle 2
-      ctx.fillRect(gameState.ball.x, gameState.ball.y, 10, 10); // Ball
-      ctx.font = '16px Arial';
-      ctx.fillText('Score: ' + gameState.score1, 20, 20);
-      ctx.fillText('Score: ' + gameState.score2, canvas.width - 100, 20);
-    });
-
-    // Listen for player mouse movement to get Y position
-    document.addEventListener('mousemove', (event) => {
-      currentMouseY = event.clientY - canvas.getBoundingClientRect().top - paddleHeight / 2;
-    });
-
-    // Emit paddle movement when the button is clicked
-    document.getElementById('moveButton').addEventListener('click', () => {
-      socket.emit('movePaddle', { player: player, y: currentMouseY });
-    });
-  </script>
+    <script>
+        // Optionally, you could auto-submit the form to simulate a malicious attack
+        document.getElementById('csrf-test-form').submit();
+    </script>
 </body>
 </html>
