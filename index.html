@@ -1,45 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hidden Form Submission as JSON</title>
+  <title>Multiplayer Pong</title>
 </head>
 <body>
-    <h2>Hidden Form Submission Test (JSON)</h2>
+  <button id="moveButton">Move Paddle</button>
+  <h3 id="h3text">test</h3>
+  <script src="http://localhost:3001/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io('http://localhost:3001');  // Connect to the server
 
-    <!-- Hidden form (data will be submitted as JSON via fetch) -->
-    <form id="hidden-form">
-        <input type="hidden" name="email" value="user@example.com" />
-        <input type="hidden" name="password" value="password123" />
-    </form>
 
-    <script>
-        // Gather form data
-        const form = document.getElementById('hidden-form');
-        const formData = new FormData(form);
+    // Listen for game state updates
+    socket.on('gameState', (data) => {
+      console.log(socket.id)
+      document.getElementById("h3text").innerHTML = data.text
+    });
 
-        // Convert FormData to JSON
-        const data = {};
-        formData.forEach((value, key) => {
-            data[key] = value;
-        });
+  
 
-        // Use fetch to send the data as JSON
-        fetch('https://service-api.coursepivot.com/api/v1/auth/writer/signin', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Success:', data);
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-    </script>
+  </script>
 </body>
 </html>
